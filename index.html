@@ -1,13 +1,247 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio BTS SIO SISR</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio BTS SIO SISR</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500&family=Cormorant+Garamond:wght@600&display=swap">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Portfolio BTS SIO SISR</h1>
-    <p>Bienvenue sur mon portfolio BTS SIO SISR !</p>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#haut" aria-label="Accueil">Prénom<span>.</span></a>
+  <nav aria-label="Navigation principale">
+    <a href="#haut">Accueil</a><a href="#competences">Compétences</a><a href="#certifications">Certifications</a><a href="#realisations">Projets</a><a href="#stages">Expériences</a><a href="#veille">Veille</a>
+  </nav>
+  <a class="nav-cta" href="#contact">Me contacter</a>
+</div></header>
+
+<main id="haut" class="wrap">
+  <div class="hero">
+    <div>
+      <div class="status"><i></i>Étudiant en BTS SIO option SISR</div>
+      <h1>Prénom Nom</h1>
+      <p class="role">Futur technicien systèmes et réseaux</p>
+      <p>Je conçois, installe et supervise des infrastructures réseau et système. Ce portfolio rassemble mes projets, mes stages et ma veille technologique.</p>
+      <div class="btns">
+        <a class="btn main" href="#realisations">Voir mes réalisations</a>
+        <a class="btn alt" href="#" id="cv">Télécharger mon CV</a>
+      </div>
+    </div>
+    <div>
+      <svg class="topo" viewBox="0 0 420 320" role="group" aria-label="Schéma réseau interactif : cliquez sur un équipement pour filtrer les réalisations">
+        <g id="lines">
+          <line x1="210" y1="160" x2="210" y2="60"/><line x1="210" y1="160" x2="70" y2="150"/><line x1="210" y1="160" x2="350" y2="150"/><line x1="210" y1="160" x2="105" y2="270"/><line x1="210" y1="160" x2="315" y2="270"/>
+        </g>
+        <circle class="hub" cx="210" cy="160" r="26"/><text x="210" y="165">LAN</text>
+        <g class="node" data-tag="securite" role="button" tabindex="0" aria-pressed="false"><rect x="150" y="38" width="120" height="44" rx="10"/><text x="210" y="65">Pare-feu</text></g>
+        <g class="node" data-tag="reseau" role="button" tabindex="0" aria-pressed="false"><rect x="10" y="128" width="120" height="44" rx="10"/><text x="70" y="155">DNS et DHCP</text></g>
+        <g class="node" data-tag="windows" role="button" tabindex="0" aria-pressed="false"><rect x="290" y="128" width="120" height="44" rx="10"/><text x="350" y="155">Active Directory</text></g>
+        <g class="node" data-tag="supervision" role="button" tabindex="0" aria-pressed="false"><rect x="45" y="248" width="120" height="44" rx="10"/><text x="105" y="275">Supervision</text></g>
+        <g class="node" data-tag="assistance" role="button" tabindex="0" aria-pressed="false"><rect x="255" y="248" width="120" height="44" rx="10"/><text x="315" y="275">GLPI</text></g>
+      </svg>
+      <p class="topo-hint">Cliquez sur un équipement pour filtrer mes projets.</p>
+    </div>
+  </div>
+
+  <section id="realisations">
+    <h2>Réalisations</h2>
+    <p class="lead">Projets réalisés en formation et en stage. Cliquez sur une carte pour voir le contexte, la mise en œuvre et la documentation.</p>
+    <div class="chips" id="chips" role="group" aria-label="Filtrer par domaine"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="competences">
+    <h2>Tableau de synthèse</h2>
+    <p class="lead">Les compétences du référentiel mobilisées par chaque réalisation.</p>
+    <div class="scroll"><table id="matrix"></table></div>
+    <p class="legend" id="legend"></p>
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <p class="lead">Certifications et formations suivies en dehors des cours.</p>
+    <div class="list">
+      <article class="item"><h3>Nom de la certification</h3><small>Organisme, année</small><p>Description à compléter.</p></article>
+    </div>
+  </section>
+
+  <section id="stages">
+    <h2>Stages et expériences</h2>
+    <p class="lead">Les informations de l’entreprise sont anonymisées.</p>
+    <div class="list" id="stages-list"></div>
+  </section>
+
+  <section id="veille">
+    <h2>Veille technologique</h2>
+    <p class="lead" id="veille-sujet"></p>
+    <div class="list" id="veille-list"></div>
+  </section>
+
+  <section id="contact">
+    <h2>Me contacter</h2>
+    <p class="lead">Je cherche une poursuite d’études ou un premier poste en systèmes et réseaux.</p>
+    <div class="btns">
+      <a class="btn main" href="mailto:prenom.nom@exemple.fr">prenom.nom@exemple.fr</a>
+      <a class="btn alt" href="#">LinkedIn</a>
+      <a class="btn alt" href="#">GitHub</a>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Portfolio BTS SIO option SISR. Prénom Nom, session 2027.</div></footer>
+
+<dialog id="dlg" aria-labelledby="dlg-title"></dialog>
+
+<script>
+/* ===== 1. MODIFIE TES DONNÉES ICI ===== */
+const TAGS = { reseau:'Réseau', windows:'Systèmes Windows', securite:'Sécurité', supervision:'Supervision', assistance:'Assistance' };
+
+const COMPETENCES = {
+  'B1.1':'Gérer le patrimoine informatique',
+  'B1.2':'Répondre aux incidents et aux demandes d’assistance',
+  'B1.4':'Travailler en mode projet',
+  'B2.1':'Concevoir une solution d’infrastructure réseau',
+  'B2.2':'Installer, tester et déployer une solution d’infrastructure réseau',
+  'B2.3':'Exploiter, dépanner et superviser une solution d’infrastructure réseau',
+  'B3.3':'Sécuriser les équipements et les usages des utilisateurs',
+  'B3.4':'Garantir la disponibilité, l’intégrité et la confidentialité des services',
+  'B3.5':'Assurer la cybersécurité d’une infrastructure réseau, d’un système, d’un service'
+};
+
+const PROJECTS = [
+  { id:'P1', titre:'Maquette DNS et DHCP', tags:['reseau'],
+    resume:'Déploiement des services DNS et DHCP sur une maquette virtualisée.',
+    contexte:'Une PME fictive a besoin d’attribuer automatiquement les adresses IP et de résoudre les noms internes.',
+    solution:'Maquette VMware avec serveurs Windows et Linux, un client et deux commutateurs.',
+    etapes:['Schéma d’adressage et plan de nommage','Installation et configuration du service DHCP (étendues, réservations)','Configuration des zones DNS directe et inverse','Tests de résolution et d’attribution depuis le client'],
+    outils:['VMware','Windows Server','Wireshark'], competences:['B2.1','B2.2','B2.3'], doc:'#' },
+  { id:'P2', titre:'Active Directory et GPO', tags:['windows','securite'],
+    resume:'Annuaire centralisé, comptes, groupes et stratégies de groupe.',
+    contexte:'Centraliser l’authentification et appliquer des règles de sécurité aux postes.',
+    solution:'Contrôleur de domaine avec unités d’organisation, partages et GPO.',
+    etapes:['Installation du rôle AD DS','Création des OU, utilisateurs et groupes','Mise en place des GPO (mot de passe, lecteurs réseau)','Jonction des postes au domaine'],
+    outils:['Windows Server','PowerShell'], competences:['B1.4','B2.2','B3.3'], doc:'#' },
+  { id:'P3', titre:'Parc et tickets avec GLPI', tags:['assistance'],
+    resume:'Inventaire du parc et gestion des demandes d’assistance.',
+    contexte:'Suivre les équipements et traiter les incidents des utilisateurs.',
+    solution:'GLPI installé sur serveur Linux, relié à l’inventaire automatique.',
+    etapes:['Installation de GLPI (Apache, MariaDB, PHP)','Inventaire automatique des postes','Création des catégories et des règles de tickets','Traitement d’un incident de bout en bout'],
+    outils:['GLPI','Debian','FusionInventory'], competences:['B1.1','B1.2'], doc:'#' },
+  { id:'P4', titre:'Pare-feu pfSense', tags:['securite','reseau'],
+    resume:'Segmentation du réseau et filtrage des flux avec un pare-feu.',
+    contexte:'Isoler les serveurs, les postes et la zone démilitarisée.',
+    solution:'pfSense avec trois interfaces, règles de filtrage et NAT.',
+    etapes:['Création des zones LAN, DMZ et WAN','Écriture des règles de filtrage','Configuration du NAT et d’un VPN','Tests de flux autorisés et bloqués'],
+    outils:['pfSense','VirtualBox'], competences:['B2.1','B3.4','B3.5'], doc:'#' },
+  { id:'P5', titre:'Supervision avec Zabbix', tags:['supervision'],
+    resume:'Surveillance des serveurs et alertes automatiques.',
+    contexte:'Détecter rapidement les pannes avant les utilisateurs.',
+    solution:'Serveur Zabbix, agents sur les machines et alertes par courriel.',
+    etapes:['Installation du serveur Zabbix','Déploiement des agents','Création de déclencheurs et de tableaux de bord','Simulation d’une panne et réception de l’alerte'],
+    outils:['Zabbix','Debian'], competences:['B2.3','B3.4'], doc:'#' }
+];
+
+const STAGES = [
+  { titre:'Stage de 1re année', lieu:'Entreprise A, service informatique', dates:'Mai à juin 2026', texte:'Missions à compléter : assistance aux utilisateurs, installation de postes, documentation.' },
+  { titre:'Stage de 2e année', lieu:'Entreprise B, société de services', dates:'Janvier à février 2027', texte:'Missions à compléter : déploiement d’un service, supervision, sauvegardes.' }
+];
+
+const VEILLE = {
+  sujet:'Sujet suivi : la sécurité des infrastructures réseau. Sources : ANSSI, CERT-FR, LeMagIT.',
+  items:[
+    { titre:'Titre de l’article ou de l’alerte', source:'CERT-FR', date:'Octobre 2026', resume:'Résumé en deux ou trois phrases : ce qui s’est passé et ce que j’en retiens pour mes projets.' },
+    { titre:'Titre d’un deuxième article', source:'ANSSI', date:'Septembre 2026', resume:'Résumé à compléter.' }
+  ]
+};
+/* ===== FIN DES DONNÉES ===== */
+
+const $ = s => document.querySelector(s);
+let active = null;
+
+function renderChips(){
+  const box = $('#chips'); box.innerHTML = '';
+  [[null,'Tous'], ...Object.entries(TAGS)].forEach(([k,l]) => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.textContent = l;
+    b.setAttribute('aria-pressed', String(active === k));
+    b.onclick = () => setFilter(k);
+    box.appendChild(b);
+  });
+}
+function renderGrid(){
+  const g = $('#grid'); g.innerHTML = '';
+  const list = PROJECTS.filter(p => !active || p.tags.includes(active));
+  if(!list.length){ g.innerHTML = '<p class="empty">Aucune réalisation dans ce domaine pour le moment.</p>'; return; }
+  list.forEach(p => {
+    const c = document.createElement('button');
+    c.className = 'card';
+    c.innerHTML = `<h3>${p.titre}</h3><p>${p.resume}</p><div class="tags">${p.tags.map(t=>`<span class="tag">${TAGS[t]}</span>`).join('')}</div>`;
+    c.onclick = () => openProject(p.id);
+    g.appendChild(c);
+  });
+}
+function syncNodes(){
+  document.querySelectorAll('.node').forEach(n => {
+    const on = n.dataset.tag === active;
+    n.classList.toggle('on', on); n.setAttribute('aria-pressed', String(on));
+  });
+}
+function setFilter(k){ active = (active === k) ? null : k; renderChips(); renderGrid(); syncNodes(); }
+
+document.querySelectorAll('.node').forEach(n => {
+  const go = () => { setFilter(n.dataset.tag); location.hash = '#realisations'; };
+  n.addEventListener('click', go);
+  n.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+});
+
+function openProject(id){
+  const p = PROJECTS.find(x => x.id === id), d = $('#dlg');
+  d.innerHTML = `<button class="icon-btn close" aria-label="Fermer">Fermer</button>
+    <h3 id="dlg-title">${p.titre}</h3>
+    <div class="tags">${p.tags.map(t=>`<span class="tag">${TAGS[t]}</span>`).join('')}</div>
+    <h4>Contexte</h4><p>${p.contexte}</p>
+    <h4>Solution</h4><p>${p.solution}</p>
+    <h4>Mise en œuvre</h4><ol>${p.etapes.map(e=>`<li>${e}</li>`).join('')}</ol>
+    <h4>Outils</h4><p>${p.outils.join(', ')}</p>
+    <h4>Compétences mobilisées</h4><ul>${p.competences.map(c=>`<li>${c} : ${COMPETENCES[c]}</li>`).join('')}</ul>
+    <p><a class="btn main" href="${p.doc}" target="_blank" rel="noopener">Ouvrir la documentation</a></p>`;
+  d.querySelector('.close').onclick = () => d.close();
+  d.showModal();
+}
+$('#dlg').addEventListener('click', e => { if(e.target === e.currentTarget) e.currentTarget.close(); });
+
+function renderMatrix(){
+  const m = $('#matrix');
+  let h = '<thead><tr><th>Compétence</th>' + PROJECTS.map(p=>`<th class="c" title="${p.titre}">${p.id}</th>`).join('') + '</tr></thead><tbody>';
+  Object.entries(COMPETENCES).forEach(([code,label]) => {
+    h += `<tr><td>${code} : ${label}</td>` + PROJECTS.map(p => p.competences.includes(code) ? `<td class="c hit" aria-label="Oui">●</td>` : `<td class="c" aria-label="Non"></td>`).join('') + '</tr>';
+  });
+  m.innerHTML = h + '</tbody>';
+  $('#legend').textContent = PROJECTS.map(p => `${p.id} : ${p.titre}`).join('. ') + '.';
+}
+
+function renderLists(){
+  $('#stages-list').innerHTML = STAGES.map(s => `<article class="item"><h3>${s.titre}</h3><small>${s.lieu}, ${s.dates}</small><p>${s.texte}</p></article>`).join('');
+  $('#veille-sujet').textContent = VEILLE.sujet;
+  $('#veille-list').innerHTML = VEILLE.items.map(v => `<article class="item"><h3>${v.titre}</h3><small>${v.source}, ${v.date}</small><p>${v.resume}</p></article>`).join('');
+}
+
+/* Menu : souligne la page en cours pendant le défilement */
+const links = [...document.querySelectorAll('nav a')];
+const targets = links.map(a => document.querySelector(a.getAttribute('href')));
+function spy(){
+  let best = 0, bestTop = -Infinity;
+  targets.forEach((t, i) => {
+    if(!t || t.id === 'haut') return;
+    const top = t.getBoundingClientRect().top;
+    if(top <= 140 && top > bestTop){ best = i; bestTop = top; }
+  });
+  links.forEach((a, i) => a.classList.toggle('active', i === best));
+}
+addEventListener('scroll', spy, { passive:true });
+spy();
+
+renderChips(); renderGrid(); renderMatrix(); renderLists();
+</script>
 </body>
 </html>
